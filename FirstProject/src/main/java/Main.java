@@ -12,32 +12,58 @@ public class Main {
         // testarray();
         // sometest();
         // sortarray();
-        calculator();
+        // calculator();
         //Person p = new Person("Іван", "Музичко");
         //System.out.println(p);
         //p.setFirstName("Василь");
         //System.out.println(p);
-/*
+
         //шлях підключення до бази данних
         String strCon = "jdbc:mariadb://localhost:3306/java_spu013";
         //перевіряє чи підключення є успішним
         try (Connection con = DriverManager.getConnection(strCon, "root", "")) {
             System.out.println("Connection is good");
-            //запит для бази данних
-            String query = "SELECT * FROM categories";
-            //підготовка запиту
-            PreparedStatement command = con.prepareStatement(query);
-            //виконання запиту
-            ResultSet resultSet = command.executeQuery();
-            //next зчитує кожен рядок окремо
-            while (resultSet.next()) {
-                System.out.println("Id: " + resultSet.getInt("id"));
-                System.out.println("Name: " + resultSet.getString("name"));
+            Boolean continueExe = true;
+            System.out.println("1. Вивести список категорій\n" +
+                    "2. Додати категорію\n" +
+                    "3. Вихід");
+            while (continueExe) {
+                System.out.println("Виберіть дію");
+                Scanner input = new Scanner(System.in);
+                String action = input.nextLine();
+                switch (action) {
+                    case "1":
+                        //запит для бази данних
+                        String query = "SELECT * FROM categories";
+                        //підготовка запиту
+                        PreparedStatement command = con.prepareStatement(query);
+                        //виконання запиту
+                        ResultSet resultSet = command.executeQuery();
+                        //next зчитує кожен рядок окремо
+                        while (resultSet.next()) {
+                            System.out.println("Id: " + resultSet.getString("id"));
+                            System.out.println("Name: " + resultSet.getString("name"));
+                        }
+                        break;
+                    case "2":
+                        System.out.println("Введіть назву категорії");
+                        String name = input.nextLine();
+                        String insertQuery = "INSERT INTO categories (name, datetime) VALUES ('" + name + "' , NOW());";
+                        PreparedStatement command2 = con.prepareStatement(insertQuery);
+                        command2.executeQuery();
+                        System.out.println("Додано нову категорію: " + name);
+                        break;
+                    case "3":
+                        System.out.println("Вихід");
+                        continueExe = false;
+                        break;
+                    default:
+                        break;
+                }
             }
         } catch (Exception ex) {
             System.out.println("Error connection " + ex.getMessage());
         }
-*/
     }
 
     //метод для рандому числа
@@ -80,11 +106,17 @@ public class Main {
 
     //метод сортування масива
     public static void sortarray() {
-        Person[] list = {new Person("Іван", "Музичко"), new Person("Андрій", "Шишкевич"), new Person("Аня", "Стрийко"), new Person("Олег", "Закуска"), new Person("Сергій", "Булочка")};
+        Person[] list = {
+                new Person("Іван", "Музичко"),
+                new Person("Андрій", "Шишкевич"),
+                new Person("Аня", "Стрийко"),
+                new Person("Олег", "Закуска"),
+                new Person("Сергій", "Булочка")
+        };
+
         for (Person p : list) {
             System.out.println(p);
         }
-
 
         Arrays.sort(list/*, new Comparator<Person>() {
             @Override
