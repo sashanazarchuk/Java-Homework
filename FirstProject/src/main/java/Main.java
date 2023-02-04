@@ -9,14 +9,15 @@ import java.sql.*;
 public class Main {
     public static void main(String[] args) {
         //методи
-        testarray();
-        sometest();
-        sortarray();
+        // testarray();
+        // sometest();
+        // sortarray();
+        calculator();
         //Person p = new Person("Іван", "Музичко");
         //System.out.println(p);
         //p.setFirstName("Василь");
         //System.out.println(p);
-
+/*
         //шлях підключення до бази данних
         String strCon = "jdbc:mariadb://localhost:3306/java_spu013";
         //перевіряє чи підключення є успішним
@@ -36,14 +37,13 @@ public class Main {
         } catch (Exception ex) {
             System.out.println("Error connection " + ex.getMessage());
         }
-
+*/
     }
 
     //метод для рандому числа
     public static int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
-
 
     //метод  перевірки масива на додатні і від'ємні числа
     public static void testarray() {
@@ -80,13 +80,7 @@ public class Main {
 
     //метод сортування масива
     public static void sortarray() {
-        Person[] list = {
-                new Person("Іван", "Музичко"),
-                new Person("Андрій", "Шишкевич"),
-                new Person("Аня", "Стрийко"),
-                new Person("Олег", "Закуска"),
-                new Person("Сергій", "Булочка")
-        };
+        Person[] list = {new Person("Іван", "Музичко"), new Person("Андрій", "Шишкевич"), new Person("Аня", "Стрийко"), new Person("Олег", "Закуска"), new Person("Сергій", "Булочка")};
         for (Person p : list) {
             System.out.println(p);
         }
@@ -102,6 +96,42 @@ public class Main {
 
         for (Person p : list) {
             System.out.println(p);
+        }
+    }
+
+    public static void calculator() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Введіть перше число");
+        int n1 = input.nextInt();
+        System.out.println("Введіть друге число");
+        int n2 = input.nextInt();
+        int sum = 0;
+        System.out.println("Виберіть дію");
+        String action = input.next();
+
+        switch (action) {
+            case "+":
+                sum = n1 + n2;
+                System.out.println(n1 + action + n2 + " = " + sum);
+                break;
+
+            case "-":
+                sum = n1 - n2;
+                System.out.println(n1 + action + n2 + " = " + sum);
+                break;
+
+            case "*":
+                sum = n1 * n2;
+                System.out.println(n1 + action + n2 + " = " + sum);
+                break;
+
+            case "/":
+                if (n2 == 0) {
+                    System.out.println("На нуль ділити не можна! Вихід з програми.");
+                    break;
+                } else sum = n1 / n2;
+                System.out.println(n1 + action + n2 + " = " + sum);
+                break;
         }
     }
 }
